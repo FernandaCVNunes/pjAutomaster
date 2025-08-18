@@ -1,0 +1,161 @@
+/* Paleta de cores baseada no logotipo */
+:root {
+    --azul-automaster-escuro: #111111;
+    --vermelho-automaster: #e73f4e;
+    --cinza-claro: #f5f5f5;
+    --linha-separacao: #e0e0e0;
+    --texto-escuro: #333;
+}
+
+/* Estilos globais e reset */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--texto-escuro);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* -------------------- CABEÇALHO -------------------- */
+.automaster-header {
+    background-color: white;
+    padding: 20px 0;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+}
+
+.logo-img {
+    height: 110px;
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--azul-automaster-escuro);
+}
+
+.main-nav ul {
+    display: flex;
+    column-gap: 30px;
+    align-items: center; /* Garante que todos os itens estejam centralizados */
+}
+
+.nav-link {
+    font-weight: bold;
+    text-transform: uppercase;
+    /* Ajuste aqui: padding vertical unificado */
+    padding: 10px 0; /* Aumente o padding para centralizar */
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.nav-link:hover, .nav-active {
+    color: var(--vermelho-automaster);
+    border-bottom-color: var(--vermelho-automaster);
+}
+
+.nav-button {
+    /* Ajuste aqui: padding vertical para se alinhar com os links */
+    padding: 8px 15px; /* Mantém os 8px de padding vertical */
+    border: 1px solid var(--texto-escuro);
+    border-radius: 5px;
+    color: var(--texto-escuro);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: var(--vermelho-automaster);
+    color: white;
+    border-color: var(--vermelho-automaster);
+}
+
+/* -------------------- CORPO DA PÁGINA -------------------- */
+.main-content {
+    background-color: var(--cinza-claro);
+    padding: 40px;
+    min-height: 400px; /* Garante uma altura mínima para o corpo */
+}
+
+.content-section {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Linha de separação */
+.separator-line {
+    height: 1px;
+    background-color: var(--linha-separacao);
+}
+
+/* -------------------- RODAPÉ -------------------- */
+.automaster-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--azul-automaster-escuro);
+    color: white;
+    padding: 30px 0;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Permite quebras de linha em telas menores */
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+    column-gap: 40px;
+}
+
+.footer-nav ul {
+    display: flex;
+    column-gap: 20px;
+}
+
+.footer-nav a {
+    color: white;
+    opacity: 0.8;
+}
+
+.footer-nav a:hover {
+    opacity: 1;
+}
+
+/* Inverte a cor do logo para branco no rodapé */
+.footer-logo-img {
+    height: 40px;
+    filter: brightness(0) invert(1); 
+}
+
+.copyright-text {
+    font-size: 14px;
+    opacity: 0.7;
+}
