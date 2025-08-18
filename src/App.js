@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import MasterPage from './mastepage';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <MasterPage>
+      {/* Aqui é onde o conteúdo da sua página vai */}
+      <section className="content-section">
+        <h1>Bem-vindo à AutoMaster!</h1>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Sua oficina de confiança para reparos e serviços automotivos.
+          Navegue por nossa página para saber mais sobre nossos serviços e
+          como podemos ajudar você a manter seu carro em perfeitas condições.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      </section>
+    </MasterPage>
   );
-}
+};
 
 export default App;
