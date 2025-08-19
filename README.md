@@ -68,3 +68,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+### Para criar um fork e manter o projeto atualizado com o original.
+
+- git remote add upstream https://github.com/FernandaCVNunes/pjAutomaster.git
+- git fetch upstream *Olha oque atualizou
+- git merge upstream/main *Atualiza
