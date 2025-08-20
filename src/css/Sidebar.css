@@ -10,12 +10,24 @@
   font-size: 14px;
   list-style: none;
   padding: 0;
+  margin: 0;
 }
+
 .sidebar li {
-  padding: 12px;
   cursor: pointer;
+  margin-bottom: 5px;
 }
-.sidebar li.active {
-  background: #f1f5f9;
+
+.sidebar li a {
+  display: block;
+  padding: 12px;
+  color: #000;
+  text-decoration: none;
   border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.sidebar li a.active {
+  background-color: #e0e0e0;
+  font-weight: 500;
 }

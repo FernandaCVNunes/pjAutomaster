@@ -7,7 +7,6 @@ export default function DashboardLayout () {
     return (
         <div className="dashboard-container">
             <aside className='sidebarDesh'>
-                <h2>📊 Dashboard</h2>
                 <Sidebar />
             </aside>
 

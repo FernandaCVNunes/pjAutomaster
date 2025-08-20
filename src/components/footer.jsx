@@ -1,4 +1,3 @@
-import React from 'react';
 import logoFooter from '../img/Logo.png'; // Importa a imagem do rodapé
 
 const Footer = () => {

@@ -3,7 +3,6 @@ import MasterPage from './mastepage';
 const App = () => {
   return (
     <MasterPage>
-      {/* Aqui é onde o conteúdo da sua página vai */}
       <section className="content-section">
         <h1>Bem-vindo à AutoMaster!</h1>
         <p>

@@ -1,4 +1,3 @@
-import React from 'react';
 import logoHeader from '../img/Logotipo.jpg'; // Importa a imagem
 
 const Header = () => {
