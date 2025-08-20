@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import App from "./App"
 import DashboardLayout from "./layouts/DashboardLayout";
 import Dashboard from "./pages/Dashboard";
+import MeuPerfil from "./pages/MeuPerfil";
 
 export default function AppRoutes() {
     return(
@@ -12,6 +13,7 @@ export default function AppRoutes() {
 
             <Route element={<DashboardLayout />}>
                 <Route path="/dashboard" element={<Dashboard/>}/>
+                <Route path="/perfil" element={<MeuPerfil/>}/>
                 {/*Rotas para as paginas do deshboard*/}
             </Route>
         </Routes>
