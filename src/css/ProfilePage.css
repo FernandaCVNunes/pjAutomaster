@@ -1,0 +1,92 @@
+/*Geral*/
+main{
+    padding: 5px;
+}
+
+h1{
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.perfil-menu{
+    display: flex;
+    gap: 30px;
+    border-bottom: 2px solid rgba(128, 128, 128, 0.616);
+    border-radius: 1px;
+}
+
+.perfil-menu h4{
+    font-size: 15px;
+    font-weight: 600;
+    border-bottom: 3px solid rgba(128, 128, 128, 0.418);
+    margin-bottom: 0px;
+    padding-bottom: 10px;
+}
+
+.perfil-menu h4:hover{
+   border-bottom: 3px solid rgba(0, 66, 151, 0.603);
+   color: rgba(0, 66, 151, 0.603);
+   cursor: pointer;
+}
+
+
+.perfil-main h3{
+    font-size: 20px;
+    margin: 20px 0px;
+    font-weight: 600;
+}
+
+/*Formulário*/
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 300px;
+}
+
+form label {
+    display: flex;
+    flex-direction: column;
+}
+
+form label input {
+    border: 1px solid gray;
+    border-radius: 10px;
+    outline: none;
+    padding: 2px 4px;
+    margin: 8px 0px;
+}
+
+form div.area-button {
+    display: flex;
+    justify-content: space-between;
+}
+
+form button.btn-safe{
+    border: 0;
+    padding: 3px;
+    width: 60px;
+    margin-bottom: 10px;
+    font-size: 10px;
+    font-weight: bolder;
+    color: white;
+    background-color: rgb(26, 116, 233);
+}
+
+form button.btn-cancel{
+    border: 0;
+    padding: 3px;
+    width: 60px;
+    margin-bottom: 10px;
+    font-size: 10px;
+    font-weight: bolder;
+    color: white;
+    background-color: rgb(5, 11, 19);
+}
+
+/*responsividade*/
+@media (min-width: 768px) {
+    form {
+        width: 450px;
+    }
+}

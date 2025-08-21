@@ -12,11 +12,13 @@ export default function Navbar() {
       </button>
 
       {open && (
-        <div className="mobile-sidebar">
-          <div className="close-sidebar" onClick={()=>setOpen(false)}>
-            X
+        <div className="fundo" onClick={()=>setOpen(false)}>
+          <div className="mobile-sidebar">
+            <div className="close-sidebar" onClick={()=>setOpen(false)}>
+              X
+            </div>
+            <Sidebar />
           </div>
-          <Sidebar />
         </div>
       )}
     </nav>

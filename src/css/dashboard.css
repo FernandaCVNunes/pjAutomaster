@@ -10,15 +10,11 @@
 
 .dashboard-content {
   flex: 1;
-  padding: 5px;
-  background-color: #ecf0f1;
+  background-color: #fff;
 }
 
 @media (max-width: 768px) {
   .sidebarDesh {
     display: none;
-  }
-  .dashboard-content {
-    padding: 0px 10px;
   }
 }
