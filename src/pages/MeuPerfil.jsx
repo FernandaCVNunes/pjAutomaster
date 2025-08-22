@@ -2,47 +2,70 @@ import { useState } from "react";
 import "../css/ProfilePage.css";
 import { FormClient } from "../components/perfil/form-client";
 import { FormVeiculo } from "../components/perfil/form-veiculo";
+import { FormFuncionario } from "../components/perfil/form-funcionario";
+import { ClientesList } from "../components/perfil/clientes-list";
 
 export default function MeuPerfil() {
   const [page, setPage] = useState(1)
+  const [disable, setDisable] = useState(true)
 
-{/*
-  Para a tela de edição do funcionário
-
-  1. Campos herdados da classe Usuário (comuns a clientes e funcionários):
-    Nome
-
-    E-mail
-
-    Senha (com opção de alteração)
-
-    Telefone
-
-    2. Campos específicos do funcionário (baseado no Diagrama de Classes):
-
-    Função/Cargo (ex.: Mecânico, Recepcionista, Gerente)
-
-    Agenda  
-*/}
-
+  let user = 'funcionario'
+  /* 'funcionario'  'user' */
 
   return (
     <div>
+
+      {user === 'funcionario' &&
+        <main>
+          <h1>Clientes</h1>
+          <div>
+            <div className="perfil-menu">
+              <h4 className={page === 1 ? "active" : ""} onClick={()=>setPage(1)}>Clientes</h4>
+              <h4 className={page === 2 ? "active" : ""} onClick={()=>setPage(2)}>Meu perfil</h4>
+            </div>
+
+            {page === 1 &&
+              <div>
+                <ClientesList/>
+              </div>
+            }
+
+            {page === 2 &&
+              <div className="perfil-main">
+                <div>
+                  <h3>Dados Cadastrais</h3>
+                  {disable === true &&
+                    <button onClick={()=> setDisable(false)}>Editar</button>
+                  }
+                </div>
+                <div>
+                  <FormFuncionario disable={disable} setDisable={setDisable}/>
+                </div>
+              </div>
+            }
+          </div>
+        </main>
+      }
+
+      { user === 'user' &&
         <main>
           <h1>Meu Perfil</h1>
           <div>
             <div className="perfil-menu">
-              <h4 onClick={()=>setPage(1)}>Perfil</h4>
-              <h4 onClick={()=>setPage(2)}>Veículos</h4>
+              <h4 className={page === 1 ? "active" : ""} onClick={()=>setPage(1)}>Perfil</h4>
+              <h4 className={page === 2 ? "active" : ""} onClick={()=>setPage(2)}>Veículos</h4>
             </div>
 
             {page === 1 &&
               <div className="perfil-main">
                 <div>
                   <h3>Dados Cadastrais</h3>
+                  {disable === true &&
+                    <button onClick={()=> setDisable(false)}>Editar</button>
+                  }
                 </div>
                 <div>
-                  <FormClient />
+                  <FormClient disable={disable} setDisable={setDisable}/>
                 </div>
               </div>
             }
@@ -51,15 +74,19 @@ export default function MeuPerfil() {
               <div className="perfil-main">
                 <div>
                   <h3>Dados Cadastrais</h3>
+                  {disable === true &&
+                    <button onClick={()=> setDisable(false)}>Editar</button>
+                  }
                 </div>
                 <div>
-                  <FormVeiculo />
+                  <FormVeiculo disable={disable} setDisable={setDisable}/>
                 </div>
               </div>
             }
 
           </div>
         </main>
+      }
     </div>
   );
 }

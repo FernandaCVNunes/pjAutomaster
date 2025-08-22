@@ -21,9 +21,12 @@ h1{
     border-bottom: 3px solid rgba(128, 128, 128, 0.418);
     margin-bottom: 0px;
     padding-bottom: 10px;
+    transition: color 0.2s, border-bottom 0.2s;
 }
 
-.perfil-menu h4:hover{
+.perfil-menu h4:hover,
+.perfil-menu h4.active
+{
    border-bottom: 3px solid rgba(0, 66, 151, 0.603);
    color: rgba(0, 66, 151, 0.603);
    cursor: pointer;
@@ -34,6 +37,23 @@ h1{
     font-size: 20px;
     margin: 20px 0px;
     font-weight: 600;
+}
+
+.perfil-main button{
+    border: 0;
+    padding: 3px;
+    width: 60px;
+    margin-bottom: 10px;
+    font-size: 10px;
+    font-weight: bolder;
+    color: white;
+    background-color: rgb(26, 116, 233);
+}
+
+.perfil-main button:hover{
+    background-color: rgb(17, 85, 170);
+    color: #e0e0e0;
+    cursor: pointer;
 }
 
 /*Formulário*/
@@ -53,7 +73,7 @@ form label input {
     border: 1px solid gray;
     border-radius: 10px;
     outline: none;
-    padding: 2px 4px;
+    padding: 2px 8px;
     margin: 8px 0px;
 }
 
@@ -83,6 +103,85 @@ form button.btn-cancel{
     color: white;
     background-color: rgb(5, 11, 19);
 }
+
+form button.btn-safe:hover {
+    background-color: rgb(17, 85, 170);
+    color: #e0e0e0;
+    cursor: pointer;
+}
+
+form button.btn-cancel:hover {
+    background-color: rgb(44, 44, 44);
+    color: #e0e0e0;
+    cursor: pointer;
+}
+
+/*Funcionario*/
+
+.func-list {
+    padding: 10px;
+    overflow-x: auto; /* Adiciona rolagem horizontal se necessário */
+}
+
+.func-list table {
+    width: 100%;
+    min-width: 400px; /* Garante largura mínima para boa visualização */
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.func-list table thead tr {
+    background: #f2f2f2;
+}
+
+.func-list table tr td {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+    word-break: break-word;
+}
+
+/* Responsividade para tabelas de funcionários */
+@media (max-width: 600px) {
+    .func-list table,
+    .func-list thead,
+    .func-list tbody,
+    .func-list th,
+    .func-list td,
+    .func-list tr {
+        display: block;
+    }
+
+    .func-list table thead {
+        display: none;
+    }
+
+    .func-list table tr {
+        margin-bottom: 15px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        padding: 8px;
+    }
+
+    .func-list table td {
+        padding: 10px;
+        border: none;
+        position: relative;
+        font-size: 15px;
+    }
+
+    .func-list table td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: block;
+        margin-bottom: 4px;
+        color: #1a74e9;
+    }
+}
+
 
 /*responsividade*/
 @media (min-width: 768px) {

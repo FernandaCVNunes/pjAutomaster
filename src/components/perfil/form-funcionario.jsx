@@ -1,49 +1,47 @@
 import { useEffect, useState } from "react"
 
-export const FormClient = ({disable, setDisable}) => {
+export const FormFuncionario = ({disable, setDisable}) => {
 
-    //Apenas exemplo
+    // Exemplo de dados do backend
     const dadosBackend = {
-        nome: "Fernando",
-        email: "Fernando@gmail.com",
-        senha: "Algo123",
-        telefone: "55988765321",
-        endereco: "Rua das flores 23 bairro vila alegre"
+        nome: "Carlos",
+        email: "carlos@automaster.com",
+        senha: "Senha123",
+        telefone: "55999887766",
+        funcao: "Mecânico",
+        agenda: "Segunda a sexta, 08h às 18h"
     }
 
     const [nome, setNome] = useState("")
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
     const [telefone, setTelefone] = useState("")
-    const [endereco, setEndereco] = useState("")
+    const [funcao, setFuncao] = useState("")
 
     useEffect(() => {
         if (disable) {
-            // Preenche com dados do backend
             setNome(dadosBackend.nome)
             setEmail(dadosBackend.email)
             setSenha(dadosBackend.senha)
             setTelefone(dadosBackend.telefone)
-            setEndereco(dadosBackend.endereco)
+            setFuncao(dadosBackend.funcao)
         } else {
-            // Zera os campos para novo cadastro
             setNome("")
             setEmail("")
             setSenha("")
             setTelefone("")
-            setEndereco("")
+            setFuncao("")
         }
     }, [disable])
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        // lógica de envio
     }
 
     return(
-        <form onSubmit={handleSubmit} onReset={()=>{
-            setDisable(true)
-        }}>
-            <label htmlFor="nome"> 
+        <form onSubmit={handleSubmit} onReset={() => setDisable(true)}>
+            <label htmlFor="nome">
                 Nome
                 <input 
                     type="text" 
@@ -51,19 +49,19 @@ export const FormClient = ({disable, setDisable}) => {
                     id="nome" 
                     disabled={disable}
                     value={nome}
-                    onChange={(e)=> setNome(e.target.value)}
+                    onChange={e => setNome(e.target.value)}
                 />
             </label>
 
             <label htmlFor="email">
-                Email
+                E-mail
                 <input 
                     type="email" 
                     name="email" 
                     id="email" 
                     disabled={disable}
                     value={email}
-                    onChange={(e)=> setEmail(e.target.value)}
+                    onChange={e => setEmail(e.target.value)}
                 />
             </label>
 
@@ -75,7 +73,7 @@ export const FormClient = ({disable, setDisable}) => {
                     id="senha" 
                     disabled={disable}
                     value={senha}
-                    onChange={(e)=> setSenha(e.target.value)}
+                    onChange={e => setSenha(e.target.value)}
                 />
             </label>
 
@@ -87,21 +85,25 @@ export const FormClient = ({disable, setDisable}) => {
                     id="telefone" 
                     disabled={disable}
                     value={telefone}
-                    onChange={(e)=> setTelefone(e.target.value)}
+                    onChange={e => setTelefone(e.target.value)}
                 />
             </label>
 
-            <label htmlFor="endereco">
-                Endereço
+            <label htmlFor="funcao">
+                Função/Cargo
                 <input 
                     type="text" 
-                    name="endereco" 
-                    id="endereco" 
+                    name="funcao" 
+                    id="funcao" 
                     disabled={disable}
-                    value={endereco}
-                    onChange={(e)=> setEndereco(e.target.value)}
+                    value={funcao}
+                    onChange={e => setFuncao(e.target.value)}
                 />
             </label>
+
+            <div>
+                Campo para a AGENDA
+            </div>
 
             {disable === false &&
                 <div className="area-button">
