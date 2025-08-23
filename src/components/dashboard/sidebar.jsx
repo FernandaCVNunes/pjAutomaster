@@ -39,7 +39,7 @@ export default function Sidebar() {
           </li>
         }
         <li>
-          <NavLink to="/" className={({ isActive }) => isActive ? "active" : ""}>
+          <NavLink to="/history" className={({ isActive }) => isActive ? "active" : ""}>
             <MdHistory /> Histórico de Serviços
           </NavLink>
         </li>

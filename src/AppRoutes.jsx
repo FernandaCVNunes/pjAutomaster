@@ -3,6 +3,7 @@ import App from "./App"
 import DashboardLayout from "./layouts/DashboardLayout";
 import Dashboard from "./pages/Dashboard";
 import MeuPerfil from "./pages/MeuPerfil";
+import Historico from "./pages/Historico";
 
 export default function AppRoutes() {
     return(
@@ -14,6 +15,7 @@ export default function AppRoutes() {
             <Route element={<DashboardLayout />}>
                 <Route path="/dashboard" element={<Dashboard/>}/>
                 <Route path="/perfil" element={<MeuPerfil/>}/>
+                <Route path="/history" element={<Historico/>}/>
                 {/*Rotas para as paginas do deshboard*/}
             </Route>
         </Routes>
