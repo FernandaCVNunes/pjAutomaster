@@ -3,7 +3,7 @@ import { TableFunc } from "../components/historico/table-funcionario"
 import "../css/Historico.css"
 
 export default function Historico () {
-    let user = 'funcionario'
+    let user = 'user'
     // 'user' | 'funcionario'
 
 

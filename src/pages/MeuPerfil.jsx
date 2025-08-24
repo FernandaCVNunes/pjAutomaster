@@ -9,7 +9,7 @@ export default function MeuPerfil() {
   const [page, setPage] = useState(1)
   const [disable, setDisable] = useState(true)
 
-  let user = 'funcionario'
+  let user = 'user'
   /* 'funcionario'  'user' */
 
   return (

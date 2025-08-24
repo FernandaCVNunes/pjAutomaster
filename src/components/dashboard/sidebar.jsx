@@ -3,7 +3,7 @@ import { MdDashboard, MdEvent, MdAssignment, MdPerson, MdHistory, MdPeople } fro
 import "../../css/Sidebar.css";
 
 export default function Sidebar() {
-  let user = 'funcionario'
+  let user = 'user'
    /* 'funcionario'  'user' */
 
   return (
