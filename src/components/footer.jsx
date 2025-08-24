@@ -6,7 +6,6 @@ const Footer = () => {
     <footer className="automaster-footer">
       <div className="footer-container">
         <div className="footer-column">
-          {/* Usa a variável importada como a fonte da imagem */}
           <img src={logoFooter} alt="Logo AutoMaster" className="logo-img" />
         </div>
         <div className="footer-column">
