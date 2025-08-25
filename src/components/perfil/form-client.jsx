@@ -35,9 +35,43 @@ export const FormClient = ({disable, setDisable}) => {
         }
     }, [disable])
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-    }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const userId = 1; // Exemplo: ID do usuário que você quer editar
+
+        const payload = {
+            nome,
+            email,
+            senha,
+            telefone,
+            endereco
+        };
+
+        try {
+            const response = await fetch(`http://localhost:3001/editar/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                console.error("Erro ao atualizar perfil:", data.error);
+                alert(`Erro: ${data.error}`);
+                return;
+            }
+
+            alert(data.message);
+            setDisable(true); // bloqueia o formulário de novo
+        } catch (err) {
+            console.error(err);
+            alert("Erro de rede ou servidor");
+        }
+    };
 
     return(
         <form onSubmit={handleSubmit} onReset={()=>{

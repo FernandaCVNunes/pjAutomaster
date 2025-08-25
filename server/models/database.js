@@ -14,7 +14,7 @@ async function testarConexao() {
     try {
         const connection = await pool.getConnection();
         console.log("Conexão com o banco de dados estabelecida com sucesso!");
-        connection.release(); // libera a conexão de volta para o pool
+        connection.release();
     } catch (err) {
         console.error("Erro ao conectar ao banco:", err.message);
     }

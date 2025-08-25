@@ -32,9 +32,46 @@ export const FormVeiculo = ({disable, setDisable}) => {
         }
     }, [disable])
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-    }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const veiculo_id = 1;
+        const clientId = 1; // Simulando o ID do cliente
+        const payload = {
+            placa,
+            marca,
+            modelo,
+            ano,
+            cor,
+            client_id: clientId
+        };
+
+        try {
+            // Requisição PUT para atualizar o veículo
+            const response = await fetch(`http://localhost:3001/veiculos/${veiculo_id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                console.error("Erro ao atualizar veículo:", data.error);
+                alert(`Erro: ${data.error}`);
+                return;
+            }
+
+            alert(data.message);
+            setDisable(true); // bloqueia o formulário de novo
+        } catch (err) {
+            console.error(err);
+            alert("Erro de rede ou servidor");
+        }
+    };
+
 
     return(
         <form onSubmit={handleSubmit} onReset={() => setDisable(true)}>
