@@ -9,7 +9,6 @@ export const FormFuncionario = ({disable, setDisable}) => {
         senha: "Senha123",
         telefone: "55999887766",
         funcao: "Mecânico",
-        agenda: "Segunda a sexta, 08h às 18h"
     }
 
     const [nome, setNome] = useState("")
@@ -34,10 +33,44 @@ export const FormFuncionario = ({disable, setDisable}) => {
         }
     }, [disable])
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        // lógica de envio
-    }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const userId = 2; // exemplo: ID do funcionário que você quer editar
+
+        const payload = {
+            nome,
+            email,
+            senha,
+            telefone,
+            perfil: 'funcionario', // sempre enviar "funcionario"
+            funcao
+        };
+
+        try {
+            const response = await fetch(`http://localhost:3001/editar/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                console.error("Erro ao atualizar perfil:", data.error);
+                alert(`Erro: ${data.error}`);
+                return;
+            }
+
+            alert(data.message);
+            setDisable(true); // bloqueia o formulário novamente
+        } catch (err) {
+            console.error(err);
+            alert("Erro de rede ou servidor");
+        }
+    };
 
     return(
         <form onSubmit={handleSubmit} onReset={() => setDisable(true)}>
