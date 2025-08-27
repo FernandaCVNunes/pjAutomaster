@@ -18,7 +18,7 @@ export const FormAgenda = () => {
 
     const [dadosAgendamento, setDadosAgendamento] = useState([])
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         if (!selectedDate || !selectedVeiculo || !selectedServico || !selectedHorario) {
@@ -26,23 +26,43 @@ export const FormAgenda = () => {
             return
         }
 
+        const data = selectedDate.toISOString().split("T")[0] // pega formato YYYY-MM-DD
         const novoAgendamento = {
-            veiculo: selectedVeiculo,
+            data,
+            horario: selectedHorario,
             servico: selectedServico,
-            data: selectedDate.toLocaleDateString('pt-BR'),
-            horario: selectedHorario
+            veiculo_id: selectedVeiculo
         }
 
-        setDadosAgendamento([...dadosAgendamento, novoAgendamento])
+        try {
+            const response = await fetch("http://localhost:3001/agenda/agendar", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(novoAgendamento)
+            })
 
-        // Aqui você pode enviar 'novoAgendamento' para o backend
-        // Exemplo: api.post('/agendar', novoAgendamento)
+            const result = await response.json()
 
-        // Limpa os campos após agendar
-        setSelectedVeiculo("")
-        setSelectedServico("")
-        setSelectedHorario("")
-        setSelectedDate(undefined)
+            if (!response.ok) {
+                alert(result.error || "Erro ao agendar")
+                return
+            }
+
+            alert("Agendamento realizado com sucesso!")
+
+            // Atualiza lista local
+            setDadosAgendamento([...dadosAgendamento, result.agendamento])
+
+            // Limpa os campos
+            setSelectedVeiculo("")
+            setSelectedServico("")
+            setSelectedHorario("")
+            setSelectedDate(undefined)
+
+        } catch (error) {
+            console.error("Erro:", error)
+            alert("Erro ao conectar com o servidor")
+        }
     }
 
     return (
@@ -57,7 +77,7 @@ export const FormAgenda = () => {
                     <option value="" disabled>Nenhum veículo cadastrado</option>
                 ) : (
                     veiculos.map(v => (
-                        <option key={v.id} value={v.nome}>{v.nome}</option>
+                        <option key={v.id} value={v.id}>{v.nome}</option>
                     ))
                 )}
             </select>
