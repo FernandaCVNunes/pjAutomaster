@@ -2,14 +2,14 @@ import React from 'react';
 import Header from './components/header.jsx';
 import Footer from './components/footer.jsx';
 
-// Onde os estilos serão aplicados globalmente
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/style.css'; 
 
-const MasterPage = ({ children }) => {
+const MasterPage = ({ user, onLogout, children }) => {
   return (
     <div>
-      <Header />
+      {/* O Header está aqui e recebe os props para saber o estado do login */}
+      <Header user={user} onLogout={onLogout} />
       <div className="separator-line"></div>
       <main className="main-content">
         {children}

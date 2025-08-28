@@ -244,3 +244,206 @@ p {
     font-size: 14px;
     opacity: 0.7;
 }
+
+/* -------------------- ESTILOS PARA LOGIN E REGISTRO -------------------- */
+
+/* Container principal */
+.login-container,
+.registro-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--azul-automaster-escuro) 0%, #2c3e50 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Card de login/registro */
+.login-card,
+.registro-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+/* Header do card */
+.login-header,
+.registro-header {
+    margin-bottom: 30px;
+}
+
+.login-logo,
+.registro-logo {
+    height: 80px;
+    margin-bottom: 20px;
+}
+
+.login-header h1,
+.registro-header h1 {
+    color: var(--azul-automaster-escuro);
+    font-size: 2rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.login-header p,
+.registro-header p {
+    color: #666;
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* Formulário */
+.login-form,
+.registro-form {
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--azul-automaster-escuro);
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--vermelho-automaster);
+    box-shadow: 0 0 0 3px rgba(231, 63, 78, 0.1);
+}
+
+/* Botões */
+.login-button,
+.registro-button {
+    width: 100%;
+    padding: 15px;
+    background: var(--vermelho-automaster);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+}
+
+.login-button:hover,
+.registro-button:hover {
+    background: #d6333f;
+    transform: translateY(-2px);
+}
+
+.login-button:disabled,
+.registro-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Mensagens de erro e sucesso */
+.error-message {
+    background: #fee;
+    color: #c33;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #fcc;
+    font-size: 0.9rem;
+}
+
+.success-message {
+    background: #efe;
+    color: #363;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #cfc;
+    font-size: 0.9rem;
+}
+
+/* Footer do card */
+.login-footer,
+.registro-footer {
+    text-align: center;
+}
+
+.login-footer p,
+.registro-footer p {
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.link-registro,
+.link-login {
+    color: var(--vermelho-automaster);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.link-registro:hover,
+.link-login:hover {
+    text-decoration: underline;
+}
+
+.link-voltar {
+    color: var(--azul-automaster-escuro);
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: 2px solid var(--azul-automaster-escuro);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.link-voltar:hover {
+    background: var(--azul-automaster-escuro);
+    color: white;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .login-card,
+    .registro-card {
+        padding: 30px 20px;
+        margin: 20px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .login-header h1,
+    .registro-header h1 {
+        font-size: 1.5rem;
+    }
+}

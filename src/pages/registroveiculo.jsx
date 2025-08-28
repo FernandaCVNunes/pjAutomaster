@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import MasterPage from '../MasterPage';
 
 const RegistroVeiculo = () => {
-    // 1. Crie o estado para armazenar os dados do formulário
+    
     const [formData, setFormData] = useState({
         placa: '',
         marca: '',
@@ -11,13 +11,12 @@ const RegistroVeiculo = () => {
         proprietario: ''
     });
 
-    // 2. Crie uma função para atualizar o estado quando o usuário digitar
+    
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    // 3. Crie uma função para lidar com o envio do formulário
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {

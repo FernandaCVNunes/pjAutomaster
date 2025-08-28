@@ -1,11 +1,11 @@
 const mysql = require('mysql2/promise');
 
-// Configurações de conexão com o seu banco de dados
+// Configurações de conexão do banco de dados
 const pool = mysql.createPool({
-    host: '127.0.0.1',       // Endereço do seu servidor MySQL
+    host: '127.0.0.1',       
     user: 'root',     // Seu usuário do MySQL Workbench
     password: 'root0208',     // Sua senha
-    database: 'dbmecanica', // O nome do banco que você criou
+    database: 'bdmecanica', 
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0

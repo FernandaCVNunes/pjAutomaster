@@ -2,23 +2,24 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const authRoutes = require('./routes/authRoutes');
 const veiculoRoutes = require('./routes/veiculoRoutes');
+const agendaRoutes = require('./routes/agendaRoutes');
+
 
 const app = express();
 const PORT = 3001;
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000'
+}));
+
 app.use(bodyParser.json());
 
-// Exemplo de rota de agendamentos
-app.get('/api/events', (req, res) => {
-  // Aqui você fará a chamada ao seu 'controller' para buscar os dados do banco
-  res.json([
-    { id: 1, title: 'Troca de Óleo', start: '2025-08-18T10:00:00' }
-  ]);
-});
+app.use('/api/auth', authRoutes);
 app.use('/api', veiculoRoutes);
+app.use('/api', agendaRoutes);
 
 app.listen(PORT, () => {
-    console.log(`Servidor de agenda rodando em http://localhost:${PORT}`);
+    console.log(`Servidor de agenda rodando em http://localhost:${PORT}`);
 });
