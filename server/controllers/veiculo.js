@@ -6,6 +6,33 @@ async function getClientById(id) {
     return rows[0]; // retorna cliente ou undefined
 }
 
+exports.getVeiculosByCliente = async (req, res) => {
+    const { cliente_id } = req.params;
+
+    if (!cliente_id) {
+        return res.status(400).json({ error: "cliente_id é obrigatório." });
+    }
+
+    try {
+        // Verifica se cliente existe
+        const [clienteRows] = await pool.execute('SELECT * FROM cliente WHERE id = ?', [cliente_id]);
+        if (clienteRows.length === 0) {
+            return res.status(404).json({ error: "Cliente não encontrado." });
+        }
+
+        // Busca os veículos relacionados
+        const [veiculos] = await pool.execute(
+            'SELECT id, placa, marca, modelo, ano, cor FROM veiculo WHERE cliente_id = ?',
+            [cliente_id]
+        );
+
+        return res.status(200).json(veiculos);
+    } catch (err) {
+        console.error('Erro ao buscar veículos:', err);
+        return res.status(500).json({ error: 'Erro no servidor ao buscar veículos.' });
+    }
+};
+
 exports.createVeiculo = async (req, res) => {
     const { marca, modelo, ano, placa, cor, client_id } = req.body;
 

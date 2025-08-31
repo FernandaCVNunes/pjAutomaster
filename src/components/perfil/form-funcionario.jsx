@@ -1,58 +1,62 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
-export const FormFuncionario = ({disable, setDisable}) => {
+export const FormFuncionario = ({ disable, setDisable }) => {
+    const { user } = useContext(AuthContext);
+    const userId = user?.id;
 
-    // Exemplo de dados do backend
-    const dadosBackend = {
-        nome: "Carlos",
-        email: "carlos@automaster.com",
-        senha: "Senha123",
-        telefone: "55999887766",
-        funcao: "Mecânico",
-    }
-
-    const [nome, setNome] = useState("")
-    const [email, setEmail] = useState("")
-    const [senha, setSenha] = useState("")
-    const [telefone, setTelefone] = useState("")
-    const [funcao, setFuncao] = useState("")
+    const [nome, setNome] = useState("");
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("********");
+    const [telefone, setTelefone] = useState("");
+    const [funcao, setFuncao] = useState("");
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (disable) {
-            setNome(dadosBackend.nome)
-            setEmail(dadosBackend.email)
-            setSenha(dadosBackend.senha)
-            setTelefone(dadosBackend.telefone)
-            setFuncao(dadosBackend.funcao)
-        } else {
-            setNome("")
-            setEmail("")
-            setSenha("")
-            setTelefone("")
-            setFuncao("")
-        }
-    }, [disable])
+        const fetchUserData = async () => {
+            if (!userId) return;
+
+            setLoading(true);
+            try {
+                const response = await fetch(`http://localhost:3001/user/${userId}`);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    console.error("Erro ao buscar dados do funcionário:", data.error);
+                    return;
+                }
+
+                setNome(data.nome);
+                setEmail(data.email);
+                setSenha(""); // nunca preencher a senha real
+                setTelefone(data.telefone);
+                setFuncao(data.funcao || "");
+            } catch (err) {
+                console.error("Erro de rede:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUserData();
+    }, [userId]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const userId = 2; // exemplo: ID do funcionário que você quer editar
 
         const payload = {
             nome,
             email,
             senha,
             telefone,
-            perfil: 'funcionario', // sempre enviar "funcionario"
+            perfil: 'funcionario',
             funcao
         };
 
         try {
             const response = await fetch(`http://localhost:3001/editar/${userId}`, {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
 
@@ -65,14 +69,23 @@ export const FormFuncionario = ({disable, setDisable}) => {
             }
 
             alert(data.message);
-            setDisable(true); // bloqueia o formulário novamente
+            setDisable(true);
         } catch (err) {
             console.error(err);
             alert("Erro de rede ou servidor");
         }
     };
 
-    return(
+    if (loading) {
+        return (
+            <div className="loading-screen">
+                <div className="spinner"></div>
+                <p>Carregando dados do funcionário...</p>
+            </div>
+        );
+    }
+
+    return (
         <form onSubmit={handleSubmit} onReset={() => setDisable(true)}>
             <label htmlFor="nome">
                 Nome
@@ -138,12 +151,12 @@ export const FormFuncionario = ({disable, setDisable}) => {
                 Campo para a AGENDA
             </div>
 
-            {disable === false &&
+            {!disable &&
                 <div className="area-button">
                     <button className="btn-cancel" type="reset">Cancelar</button>
                     <button className="btn-safe" type="submit">Salvar</button>
                 </div>
             }
         </form>
-    )
-}
+    );
+};

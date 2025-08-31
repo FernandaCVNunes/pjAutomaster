@@ -3,8 +3,55 @@ const bcrypt = require('bcrypt');
 
 async function getUserById(id) {
     const [rows] = await pool.query('SELECT * FROM usuario WHERE id = ?', [id]);
-    return rows[0]; // retorna o usuário ou undefined
+    return rows[0];
 }
+
+exports.getUsuario = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const query = `
+            SELECT id, nome, email, telefone, endereco, perfil
+            FROM usuario
+            WHERE id = ?
+        `;
+        const [rows] = await pool.execute(query, [id]);
+
+        if (rows.length === 0) {
+            return res.status(404).json({ error: "Usuário não encontrado." });
+        }
+
+        const usuario = rows[0];
+
+        // Se for cliente, busca dados extras
+        if (usuario.perfil === "cliente") {
+            const [clienteRows] = await pool.execute(
+                "SELECT id FROM cliente WHERE id = ?",
+                [id]
+            );
+            usuario.clienteId = clienteRows.length ? clienteRows[0].id : null;
+        }
+
+        // Se for funcionário, busca dados extras
+        if (usuario.perfil === "funcionario") {
+            const [funcRows] = await pool.execute(
+                "SELECT id, agenda_id, funcao FROM funcionario WHERE id = ?",
+                [id]
+            );
+            if (funcRows.length) {
+                usuario.funcionarioId = funcRows[0].id;
+                usuario.agendaId = funcRows[0].agenda_id;
+                usuario.funcao = funcRows[0].funcao;
+            }
+        }
+
+        return res.json(usuario);
+
+    } catch (err) {
+        console.error("Erro ao buscar usuário:", err);
+        return res.status(500).json({ error: "Erro no servidor ao buscar usuário." });
+    }
+};
 
 exports.editPerfil = async (req, res) => {
     try {
@@ -51,12 +98,19 @@ exports.editPerfil = async (req, res) => {
         if ((perfil || user.perfil) === 'cliente') {
             await pool.query(
                 `UPDATE cliente SET id = ? WHERE id = ?`,
-                [id, id] // apenas para manter relacionamento, não há outros campos
+                [id, id]
             );
         } else if ((perfil || user.perfil) === 'funcionario') {
+            // Mantém agenda_id existente
+            const [func] = await pool.query(
+                "SELECT agenda_id FROM funcionario WHERE id = ?",
+                [id]
+            );
+            const agendaId = func.length ? func[0].agenda_id : null;
+
             await pool.query(
                 `UPDATE funcionario SET funcao = ?, agenda_id = ? WHERE id = ?`,
-                [funcao || 'Padrão', 1, id] // agenda_id padrão 1
+                [funcao || user.funcao || 'Padrão', agendaId, id]
             );
         }
 

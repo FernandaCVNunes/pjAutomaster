@@ -16,10 +16,11 @@ async function getUserByCPF(cpf) {
 
 // Função para registrar usuário
 exports.registro = async (req, res) => {
-    const { nome, email, senha, telefone, cpf, endereco, perfil } = req.body;
+    const { nome, email, senha, telefone, cpf, endereco, perfil, funcao } = req.body;
 
+    // Validações básicas
     if (!nome || !email || !senha || !telefone || !cpf || !endereco || !perfil) {
-        return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
+        return res.status(400).json({ error: 'Todos os campos obrigatórios devem ser preenchidos.' });
     }
 
     if (!['cliente', 'funcionario'].includes(perfil)) {
@@ -31,25 +32,63 @@ exports.registro = async (req, res) => {
     }
 
     try {
+        // Verificar se email já existe
         const existingEmail = await getUserByEmail(email);
         if (existingEmail) {
             return res.status(400).json({ error: 'Este e-mail já está cadastrado.' });
         }
 
+        // Verificar se CPF já existe
         const existingCPF = await getUserByCPF(cpf);
         if (existingCPF) {
             return res.status(400).json({ error: 'Este CPF já está cadastrado.' });
         }
 
+        // Gerar hash da senha
         const hashedPassword = await bcrypt.hash(senha, 10);
 
-        const query = `
-            INSERT INTO usuario (nome, email, senha, telefone, cpf, endereco, perfil, data_criacao)
-            VALUES (?, ?, ?, ?, ?, ?, ?, NOW())
+        // Criar usuário base
+        const insertUserQuery = `
+            INSERT INTO usuario (nome, email, senha, telefone, cpf, endereco, perfil, data_criacao, token)
+            VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NULL)
         `;
-        const [result] = await pool.execute(query, [nome, email, hashedPassword, telefone, cpf, endereco, perfil]);
+        const [userResult] = await pool.execute(insertUserQuery, [
+            nome, email, hashedPassword, telefone, cpf, endereco, perfil
+        ]);
 
-        return res.status(201).json({ message: 'Usuário criado com sucesso!', userId: result.insertId });
+        const userId = userResult.insertId;
+
+        // Inserir em cliente ou funcionario
+        if (perfil === 'cliente') {
+            const insertClienteQuery = `
+                INSERT INTO cliente (id)
+                VALUES (?)
+            `;
+            await pool.execute(insertClienteQuery, [userId]);
+
+        } else if (perfil === 'funcionario') {
+            // Criar agenda para o funcionario
+            const insertAgendaQuery = `
+                INSERT INTO agenda (id)
+                VALUES (?)
+            `;
+            const [agendaResult] = await pool.execute(insertAgendaQuery, [userId]);
+            const agendaId = agendaResult.insertId;
+
+            // Criar funcionario vinculado à agenda
+            const insertFuncionarioQuery = `
+                INSERT INTO funcionario (id, agenda_id, funcao)
+                VALUES (?, ?, ?)
+            `;
+            await pool.execute(insertFuncionarioQuery, [userId, agendaId, funcao || null]);
+        }
+
+        return res.status(201).json({
+            message: 'Usuário criado com sucesso!',
+            userId,
+            perfil
+        });
+
     } catch (err) {
         console.error('Erro ao registrar usuário:', err);
         return res.status(500).json({ error: 'Erro no servidor ao registrar o usuário.' });

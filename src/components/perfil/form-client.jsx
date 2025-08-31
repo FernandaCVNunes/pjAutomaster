@@ -1,44 +1,48 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
-export const FormClient = ({disable, setDisable}) => {
+export const FormClient = ({ disable, setDisable }) => {
+    const { user } = useContext(AuthContext);
+    const userId = user?.id;
 
-    //Apenas exemplo
-    const dadosBackend = {
-        nome: "Fernando",
-        email: "Fernando@gmail.com",
-        senha: "Algo123",
-        telefone: "55988765321",
-        endereco: "Rua das flores 23 bairro vila alegre"
-    }
-
-    const [nome, setNome] = useState("")
-    const [email, setEmail] = useState("")
-    const [senha, setSenha] = useState("")
-    const [telefone, setTelefone] = useState("")
-    const [endereco, setEndereco] = useState("")
+    const [nome, setNome] = useState("");
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("********");
+    const [telefone, setTelefone] = useState("");
+    const [endereco, setEndereco] = useState("");
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (disable) {
-            // Preenche com dados do backend
-            setNome(dadosBackend.nome)
-            setEmail(dadosBackend.email)
-            setSenha(dadosBackend.senha)
-            setTelefone(dadosBackend.telefone)
-            setEndereco(dadosBackend.endereco)
-        } else {
-            // Zera os campos para novo cadastro
-            setNome("")
-            setEmail("")
-            setSenha("")
-            setTelefone("")
-            setEndereco("")
-        }
-    }, [disable])
+        const fetchUserData = async () => {
+            if (!userId) return;
+
+            setLoading(true);
+            try {
+                const response = await fetch(`http://localhost:3001/user/${userId}`);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    console.error("Erro ao buscar dados do usuário:", data.error);
+                    return;
+                }
+
+                setNome(data.nome);
+                setEmail(data.email);
+                setSenha(""); // nunca preenche a senha real
+                setTelefone(data.telefone);
+                setEndereco(data.endereco);
+            } catch (err) {
+                console.error("Erro de rede:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUserData();
+    }, [userId]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const userId = 1; // Exemplo: ID do usuário que você quer editar
 
         const payload = {
             nome,
@@ -51,9 +55,7 @@ export const FormClient = ({disable, setDisable}) => {
         try {
             const response = await fetch(`http://localhost:3001/editar/${userId}`, {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
 
@@ -66,17 +68,24 @@ export const FormClient = ({disable, setDisable}) => {
             }
 
             alert(data.message);
-            setDisable(true); // bloqueia o formulário de novo
+            setDisable(true);
         } catch (err) {
             console.error(err);
             alert("Erro de rede ou servidor");
         }
     };
 
-    return(
-        <form onSubmit={handleSubmit} onReset={()=>{
-            setDisable(true)
-        }}>
+    if (loading) {
+        return (
+            <div className="loading-screen">
+                <div className="spinner"></div>
+                <p>Carregando dados do usuário...</p>
+            </div>
+        );
+    }
+
+    return (
+        <form onSubmit={handleSubmit} onReset={() => setDisable(true)}>
             <label htmlFor="nome"> 
                 Nome
                 <input 
@@ -137,12 +146,12 @@ export const FormClient = ({disable, setDisable}) => {
                 />
             </label>
 
-            {disable === false &&
+            {!disable &&
                 <div className="area-button">
                     <button className="btn-cancel" type="reset">Cancelar</button>
                     <button className="btn-safe" type="submit">Salvar</button>
                 </div>
             }
         </form>
-    )
-}
+    );
+};

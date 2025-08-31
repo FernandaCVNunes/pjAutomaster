@@ -240,48 +240,54 @@ ul {
 .login-card, .registro-card {
     background: #fff;
     border-radius: 15px;
-    padding: 30px 25px;
-    max-width: 450px;
+    padding: 35px 30px;
+    max-width: 500px;
     width: 100%;
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
     text-align: center;
+    animation: fadeInUp 0.6s ease; /* animação de entrada */
 }
 
 .login-logo, .registro-logo {
-    height: 70px;
-    margin-bottom: 15px;
+    height: 80px;
+    margin-bottom: 20px;
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 18px;
     text-align: left;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 5px;
-    font-size: 0.9rem;
+    margin-bottom: 6px;
+    font-size: 0.95rem;
     font-weight: 600;
     color: var(--azul-automaster-escuro);
 }
 
-.form-group input {
+.form-group input,
+.form-group select {
     width: 100%;
     padding: 12px;
     border: 2px solid #ddd;
     border-radius: 8px;
+    font-size: 0.95rem;
     transition: 0.3s;
+    background: #fafafa;
 }
 
-.form-group input:focus {
+.form-group input:focus,
+.form-group select:focus {
     border-color: var(--vermelho-automaster);
     box-shadow: 0 0 0 3px rgba(231, 63, 78, 0.2);
     outline: none;
+    background: #fff;
 }
 
 .login-button, .registro-button {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     background: var(--vermelho-automaster);
     border: none;
     border-radius: 8px;
@@ -290,7 +296,7 @@ ul {
     color: #fff;
     cursor: pointer;
     transition: 0.3s;
-    margin-top: 10px;
+    margin-top: 12px;
 }
 
 .login-button:hover, .registro-button:hover {
@@ -299,13 +305,14 @@ ul {
 }
 
 .login-footer, .registro-footer {
-    margin-top: 20px;
+    margin-top: 22px;
     text-align: center;
     font-size: 0.9rem;
 }
 
 .link-registro, .link-voltar, .link-login {
     color: var(--vermelho-automaster);
+    font-weight: 500;
 }
 
 .link-registro:hover, .link-voltar:hover, .link-login:hover {
@@ -320,6 +327,7 @@ ul {
     margin-bottom: 15px;
     font-size: 0.9rem;
     text-align: center;
+    border: 1px solid #e73f4e;
 }
 
 .success-message {
@@ -330,6 +338,30 @@ ul {
     margin-bottom: 15px;
     font-size: 0.9rem;
     text-align: center;
+    border: 1px solid #28a745;
+}
+
+/* animação suave ao abrir o card */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* responsividade */
+@media (max-width: 500px) {
+    .login-card, .registro-card {
+        padding: 25px 20px;
+    }
+
+    .login-logo, .registro-logo {
+        height: 65px;
+    }
 }
 
 /* -------------------- RESPONSIVIDADE -------------------- */

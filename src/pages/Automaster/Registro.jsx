@@ -12,7 +12,8 @@ const Registro = () => {
     telefone: '',
     endereco: '',
     cpf: '',
-    perfil: 'cliente' // valor padrão
+    perfil: 'cliente', // valor padrão
+    funcao: ''     
   });
 
   const [loading, setLoading] = useState(false);
@@ -111,6 +112,21 @@ const Registro = () => {
               <option value="funcionario">Funcionário</option>
             </select>
           </div>
+
+          {/* Campo extra aparece só se for funcionário */}
+          {formData.perfil === 'funcionario' && (
+            <div className="form-group">
+              <label htmlFor="funcao">Função (opcional)</label>
+              <input
+                type="text"
+                id="funcao"
+                name="funcao"
+                value={formData.funcao}
+                onChange={handleChange}
+                placeholder="Ex: Mecânico, Atendente, etc."
+              />
+            </div>
+          )}
 
           <button type="submit" className="registro-button" disabled={loading}>
             {loading ? 'Criando conta...' : 'Criar Conta'}
