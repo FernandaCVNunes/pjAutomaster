@@ -1,10 +1,13 @@
 import { NavLink } from "react-router-dom";
 import { MdDashboard, MdEvent, MdAssignment, MdPerson, MdHistory, MdPeople } from "react-icons/md";
 import "../../css/Sidebar.css";
+import { useContext } from "react";
+import {AuthContext} from "../../context/AuthContext"
 
 export default function Sidebar() {
-  let user = 'user'
-   /* 'funcionario'  'user' */
+  const {user} = useContext(AuthContext);
+
+  const perfil = user?.perfil //Para gerenciar entre cliente e funcionario
 
   return (
     <div className="sidebar">
@@ -24,14 +27,14 @@ export default function Sidebar() {
             <MdAssignment /> Ordens de Serviço
           </NavLink>
         </li>
-        { user === 'user' &&
+        { perfil === 'cliente' &&
         <li>
           <NavLink to="/perfil" className={({ isActive }) => isActive ? "active" : ""}>
             <MdPerson /> Meu Perfil
           </NavLink>
         </li>
         }
-        { user === 'funcionario' &&
+        { perfil === 'funcionario' &&
           <li>
             <NavLink to="/perfil" className={({ isActive }) => isActive ? "active" : ""}>
               <MdPeople/> Clientes

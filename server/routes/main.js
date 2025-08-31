@@ -3,6 +3,11 @@ const mainRouter = express.Router()
 const veiculoController = require('../controllers/veiculoController')
 const perfilController = require('../controllers/perfil')
 const agendaController = require('../controllers/agenda')
+const authController = require('../controllers/authController')
+
+//Auth
+mainRouter.post('/auth/registro', authController.registro);
+mainRouter.post('/auth/login', authController.login);
 
 // Perfil
 mainRouter.put('/editar/:id', perfilController.editPerfil)

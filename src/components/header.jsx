@@ -1,19 +1,40 @@
-import logoHeader from '../img/Logotipo.jpg'; // Importa a imagem
+import { NavLink } from 'react-router-dom';
+import logoHeader from '../img/Logotipo.jpg';
 
 const Header = () => {
   return (
     <header className="automaster-header">
       <div className="header-container">
         <div className="logo-container">
-          {/* Usa a variável importada como a fonte da imagem */}
           <img src={logoHeader} alt="Logo AutoMaster" className="logo-img" />
           <span className="logo-text">AUTOMASTER</span>
         </div>
         <nav className="main-nav">
           <ul>
-            <li><a href="/" className="nav-link nav-active">HOME</a></li>
-            <li><a href="/" className="nav-link">SOBRE NÓS</a></li>
-            <li><a href="/" className="nav-link nav-button">ENTRAR</a></li>
+            <li>
+              <NavLink 
+                to="/" 
+                className={({ isActive }) => "nav-link" + (isActive ? " nav-active" : "")}
+              >
+                HOME
+              </NavLink>
+            </li>
+            <li>
+              <NavLink 
+                to="/sobre" 
+                className={({ isActive }) => "nav-link" + (isActive ? " nav-active" : "")}
+              >
+                SOBRE NÓS
+              </NavLink>
+            </li>
+            <li>
+              <NavLink 
+                to="/login" 
+                className={({ isActive }) => "nav-link nav-button" + (isActive ? " nav-active" : "")}
+              >
+                ENTRAR
+              </NavLink>
+            </li>
           </ul>
         </nav>
       </div>

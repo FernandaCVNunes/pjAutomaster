@@ -1,21 +1,22 @@
-import { useState } from "react";
-import "../css/ProfilePage.css";
-import { FormClient } from "../components/perfil/form-client";
-import { FormVeiculo } from "../components/perfil/form-veiculo";
-import { FormFuncionario } from "../components/perfil/form-funcionario";
-import { ClientesList } from "../components/perfil/clientes-list";
+import { useContext, useState } from "react";
+import {AuthContext} from "../../context/AuthContext"
+import "../../css/ProfilePage.css";
+import { FormClient } from "../../components/perfil/form-client";
+import { FormVeiculo } from "../../components/perfil/form-veiculo";
+import { FormFuncionario } from "../../components/perfil/form-funcionario";
+import { ClientesList } from "../../components/perfil/clientes-list";
 
 export default function MeuPerfil() {
   const [page, setPage] = useState(1)
   const [disable, setDisable] = useState(true)
 
-  let user = 'user'
-  /* 'funcionario'  'user' */
+  const {user} = useContext(AuthContext);
+  const perfil = user?.perfil //Para gerenciar entre cliente e funcionario
 
   return (
     <div>
 
-      {user === 'funcionario' &&
+      {perfil === 'funcionario' &&
         <main>
           <h1>Clientes</h1>
           <div>
@@ -47,7 +48,7 @@ export default function MeuPerfil() {
         </main>
       }
 
-      { user === 'user' &&
+      { perfil === 'cliente' &&
         <main>
           <h1>Meu Perfil</h1>
           <div>

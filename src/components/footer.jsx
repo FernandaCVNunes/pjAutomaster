@@ -1,20 +1,20 @@
-import logoFooter from '../img/Logo.png'; // Importa a imagem do rodapé
+import { Link } from 'react-router-dom';
+import logoFooter from '../img/Logo.png';
 
 const Footer = () => {
   return (
     <footer className="automaster-footer">
       <div className="footer-container">
         <div className="footer-column">
-          {/* Usa a variável importada como a fonte da imagem */}
           <img src={logoFooter} alt="Logo AutoMaster" className="logo-img" />
         </div>
         <div className="footer-column">
           <nav className="footer-nav">
             <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/">Sobre Nós</a></li>
-              <li><a href="/">Entrar</a></li>
-              <li><a href="/">Contatos</a></li>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/sobre">Sobre Nós</Link></li>
+              <li><Link to="/login">Entrar</Link></li>
+              <li><Link to="/contato">Contatos</Link></li>
             </ul>
           </nav>
         </div>

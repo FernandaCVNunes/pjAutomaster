@@ -1,36 +1,46 @@
-/* Paleta de cores baseada no logotipo */
+/* -------------------- VARIÁVEIS DE CORES -------------------- */
 :root {
     --azul-automaster-escuro: #111111;
     --vermelho-automaster: #e73f4e;
-    --cinza-claro: #f5f5f5;
-    --linha-separacao: #e0e0e0;
-    --texto-escuro: #333;
+    --cinza-claro: #f0f2f5;
+    --linha-separacao: #dcdcdc;
+    --texto-escuro: #2b2b2b;
+    --fundo-suave: #fafafa;
 }
 
-/* Estilos globais e reset */
-body {
+/* -------------------- RESET & BASE -------------------- */
+* {
     margin: 0;
-    font-family: Arial, sans-serif;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
     line-height: 1.6;
     color: var(--texto-escuro);
+    background-color: var(--fundo-suave);
 }
 
 a {
     text-decoration: none;
     color: inherit;
-    transition: color 0.3s ease;
+    transition: 0.3s;
 }
 
 ul {
     list-style: none;
-    padding: 0;
-    margin: 0;
 }
 
 /* -------------------- CABEÇALHO -------------------- */
 .automaster-header {
     background-color: white;
     padding: 20px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 999;
 }
 
 .header-container {
@@ -39,16 +49,17 @@ ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 20px;
 }
 
 .logo-container {
     display: flex;
     align-items: center;
-    column-gap: 15px;
+    gap: 15px;
 }
 
 .logo-img {
-    height: 110px;
+    height: 80px;
 }
 
 .logo-text {
@@ -59,17 +70,16 @@ ul {
 
 .main-nav ul {
     display: flex;
-    column-gap: 30px;
-    align-items: center; /* Garante que todos os itens estejam centralizados */
+    gap: 30px;
+    align-items: center;
 }
 
 .nav-link {
     font-weight: bold;
     text-transform: uppercase;
-    /* Ajuste aqui: padding vertical unificado */
-    padding: 10px 0; /* Aumente o padding para centralizar */
+    padding: 10px 0;
     border-bottom: 2px solid transparent;
-    transition: border-color 0.3s ease;
+    transition: 0.3s;
 }
 
 .nav-link:hover, .nav-active {
@@ -78,12 +88,11 @@ ul {
 }
 
 .nav-button {
-    /* Ajuste aqui: padding vertical para se alinhar com os links */
-    padding: 8px 15px; /* Mantém os 8px de padding vertical */
+    padding: 8px 15px;
     border: 1px solid var(--texto-escuro);
     border-radius: 5px;
     color: var(--texto-escuro);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: 0.3s;
 }
 
 .nav-button:hover {
@@ -92,32 +101,18 @@ ul {
     border-color: var(--vermelho-automaster);
 }
 
-/* -------------------- CORPO DA PÁGINA -------------------- */
+/* -------------------- CONTEÚDO -------------------- */
 .main-content {
     background-color: var(--cinza-claro);
-    padding: 40px;
-    min-height: 400px; /* Garante uma altura mínima para o corpo */
-}
-
-.content-section {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* Linha de separação */
-.separator-line {
-    height: 1px;
-    background-color: var(--linha-separacao);
+    padding: 40px 20px;
+    min-height: 400px;
 }
 
 /* -------------------- RODAPÉ -------------------- */
 .automaster-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
     background-color: var(--azul-automaster-escuro);
     color: white;
-    padding: 30px 0;
+    padding: 30px 20px;
 }
 
 .footer-container {
@@ -126,18 +121,13 @@ ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap; /* Permite quebras de linha em telas menores */
-}
-
-.footer-left {
-    display: flex;
-    align-items: center;
-    column-gap: 40px;
+    flex-wrap: wrap;
 }
 
 .footer-nav ul {
     display: flex;
-    column-gap: 20px;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 .footer-nav a {
@@ -149,13 +139,283 @@ ul {
     opacity: 1;
 }
 
-/* Inverte a cor do logo para branco no rodapé */
 .footer-logo-img {
     height: 40px;
-    filter: brightness(0) invert(1); 
+    filter: brightness(0) invert(1);
 }
 
 .copyright-text {
     font-size: 14px;
     opacity: 0.7;
+}
+
+/* -------------------- PÁGINA SOBRE -------------------- */
+.sobre-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+.sobre-container h1 {
+    text-align: center;
+    color: var(--azul-automaster-escuro);
+    margin-bottom: 40px;
+    font-size: 36px;
+}
+
+.sobre-row {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.sobre-img {
+    flex: 1 1 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.sobre-img:hover {
+    transform: scale(1.05);
+}
+
+.sobre-text {
+    flex: 1 1 400px;
+}
+
+.sobre-text h3 {
+    color: var(--azul-automaster-escuro);
+    margin: 20px 0 10px 0;
+    font-size: 24px;
+}
+
+.sobre-text p, .sobre-text li {
+    color: var(--texto-escuro);
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+.sobre-text ul {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+/* -------------------- CONTATO -------------------- */
+.contato-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 80px 20px;
+    text-align: center;
+    background-color: var(--cinza-claro);
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.contato-container h1 {
+    font-size: 36px;
+    color: var(--azul-automaster-escuro);
+    margin-bottom: 20px;
+}
+
+.contato-text {
+    font-size: 18px;
+    color: var(--texto-escuro);
+    line-height: 1.6;
+}
+
+/* -------------------- LOGIN & REGISTRO -------------------- */
+.login-container, .registro-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background: linear-gradient(135deg, #1b1b1b, #34495e);
+}
+
+.login-card, .registro-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 30px 25px;
+    max-width: 450px;
+    width: 100%;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+.login-logo, .registro-logo {
+    height: 70px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--azul-automaster-escuro);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.form-group input:focus {
+    border-color: var(--vermelho-automaster);
+    box-shadow: 0 0 0 3px rgba(231, 63, 78, 0.2);
+    outline: none;
+}
+
+.login-button, .registro-button {
+    width: 100%;
+    padding: 12px;
+    background: var(--vermelho-automaster);
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.login-button:hover, .registro-button:hover {
+    background: #d6333f;
+    transform: translateY(-2px);
+}
+
+.login-footer, .registro-footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.link-registro, .link-voltar, .link-login {
+    color: var(--vermelho-automaster);
+}
+
+.link-registro:hover, .link-voltar:hover, .link-login:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    background: #ffe5e5;
+    color: #e73f4e;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.success-message {
+    background: #e6ffea;
+    color: #28a745;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* -------------------- RESPONSIVIDADE -------------------- */
+@media (max-width: 992px) {
+    .sobre-row {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .login-card, .registro-card {
+        padding: 25px 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contato-container {
+        padding: 60px 15px;
+    }
+
+    .sobre-container {
+        padding: 60px 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .login-card, .registro-card {
+        padding: 20px;
+    }
+
+    .login-logo, .registro-logo {
+        height: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contato-container {
+        padding: 40px 10px;
+    }
+
+    .sobre-container h1 {
+        font-size: 24px;
+    }
+
+    .contato-container h1 {
+        font-size: 24px;
+    }
+}
+
+/* -------------------- CONTENT SECTION COM BACKGROUND -------------------- */
+.content-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 20px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    color: white;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+}
+
+/* -------------------- RESPONSIVIDADE -------------------- */
+@media (max-width: 768px) {
+    .content-section {
+        padding: 60px 15px;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .content-section {
+        padding: 40px 10px;
+    }
+
+    .content-section h1 {
+        font-size: 24px;
+    }
+
+    .content-section p {
+        font-size: 14px;
+    }
 }
