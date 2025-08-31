@@ -20,7 +20,7 @@ export default function Sidebar() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/" className={({ isActive }) => isActive ? "active" : ""}>
+          <NavLink to="/servico" className={({ isActive }) => isActive ? "active" : ""}>
             <MdAssignment /> Ordens de Serviço
           </NavLink>
         </li>
