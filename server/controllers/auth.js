@@ -148,3 +148,40 @@ exports.login = async (req, res) => {
     return res.status(500).json({ error: 'Erro no servidor' });
   }
 };
+
+exports.validateToken = async (req, res) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1]; // "Bearer <token>"
+
+  if (!token) {
+    return res.status(401).json({ error: 'Token não fornecido' });
+  }
+
+  try {
+    // Verifica assinatura e expiração
+    const decoded = jwt.verify(token, JWT_SECRET);
+
+    // Opcional: validar se o token é o mesmo salvo no banco
+    const [rows] = await pool.execute('SELECT * FROM usuario WHERE id = ?', [decoded.id]);
+    const user = rows[0];
+
+    if (!user || user.token !== token) {
+      return res.status(401).json({ error: 'Token inválido ou expirado' });
+    }
+
+    // Se chegou aqui, o token é válido
+    return res.status(200).json({
+      valid: true,
+      user: {
+        id: user.id,
+        nome: user.nome,
+        email: user.email,
+        perfil: user.perfil
+      }
+    });
+
+  } catch (err) {
+    console.error('Erro ao validar token:', err);
+    return res.status(401).json({ error: 'Token inválido ou expirado' });
+  }
+};

@@ -4,10 +4,12 @@ const veiculoController = require('../controllers/veiculo')
 const perfilController = require('../controllers/perfil')
 const agendaController = require('../controllers/agenda')
 const authController = require('../controllers/auth')
+const historicoController = require('../controllers/historico')
 
 //Auth
 mainRouter.post('/auth/registro', authController.registro);
 mainRouter.post('/auth/login', authController.login);
+mainRouter.get('/auth/validate', authController.validateToken);
 
 // Perfil
 mainRouter.get('/user/:id', perfilController.getUsuario)
@@ -20,5 +22,8 @@ mainRouter.get('/veiculos/cliente/:cliente_id', veiculoController.getVeiculosByC
 
 // Agenda
 mainRouter.post('/agenda/agendar', agendaController.agendar)
+
+//Histórico
+mainRouter.get('/historico/:cliente_id', historicoController.getHistoricClient)
 
 module.exports = mainRouter;
