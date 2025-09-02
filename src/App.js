@@ -8,25 +8,24 @@ const App = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    if (!storedToken) return;
+  const storedToken = localStorage.getItem('token');
+  if (!storedToken) return;
 
-    fetch("http://localhost:3000/auth/validate", {
-      headers: { Authorization: `Bearer ${storedToken}` },
+  fetch("http://localhost:3001/auth/validate", {
+    headers: { Authorization: `Bearer ${storedToken}` },
+  })
+    .then(res => {
+      if (!res.ok) throw new Error("Token inválido");
+      return res.json();
     })
-      .then(res => {
-        if (!res.ok) throw new Error("Token inválido");
-        return res.json();
-      })
-      .then(data => {
-        // usa o login do contexto
-        login(data.user, storedToken);
-      })
-      .catch(() => {
-        // se falhar, faz logout
-        logout();
-      });
-  }, [login, logout]);
+    .then(data => {
+      // backend já retorna user pronto
+      login(data.user, storedToken);
+    })
+    .catch(() => {
+      logout();
+    });
+}, [login, logout]);
 
   useEffect(() => {
     if (isAuthenticated) {

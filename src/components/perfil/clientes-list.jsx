@@ -1,38 +1,26 @@
-import { useState, useEffect } from "react"
-import { ClienteItem } from "./cliente-item"
+import { useState, useEffect } from "react";
+import { ClienteItem } from "./cliente-item";
 
 export const ClientesList = () => {
-    // Simulação de dados do backend
-    const [clientes, setClientes] = useState([])
+    const [clientes, setClientes] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Simulando requisição ao backend
-        setTimeout(() => {
-            setClientes([
-                {
-                    id: 1,
-                    nome: "Fernando Silva",
-                    email: "fernando@gmail.com",
-                    telefone: "55988765321",
-                    endereco: "Rua das Flores, 23"
-                },
-                {
-                    id: 2,
-                    nome: "Ana Souza",
-                    email: "ana.souza@gmail.com",
-                    telefone: "55999887766",
-                    endereco: "Av. Brasil, 100"
-                },
-                {
-                    id: 3,
-                    nome: "Carlos Pereira",
-                    email: "carlos.pereira@gmail.com",
-                    telefone: "55991234567",
-                    endereco: "Rua Central, 45"
-                }
-            ])
-        }, 800)
-    }, [])
+        fetch("http://localhost:3001/clientes")
+            .then(res => res.json())
+            .then(data => {
+                setClientes(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error(err);
+                setLoading(false);
+            });
+    }, []);
+
+    if (loading) {
+        return <p>Carregando clientes...</p>;
+    }
 
     if (clientes.length === 0) {
         return (
@@ -40,7 +28,7 @@ export const ClientesList = () => {
                 <h3>Nenhum cliente cadastrado ainda.</h3>
                 <p>Assim que houver clientes, eles aparecerão aqui.</p>
             </div>
-        )
+        );
     }
 
     return (
@@ -62,5 +50,5 @@ export const ClientesList = () => {
                 </tbody>
             </table>
         </div>
-    )
-}
+    );
+};

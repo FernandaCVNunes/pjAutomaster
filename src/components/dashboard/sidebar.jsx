@@ -5,9 +5,11 @@ import { useContext } from "react";
 import {AuthContext} from "../../context/AuthContext"
 
 export default function Sidebar() {
-  const {user} = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
 
-  const perfil = user?.perfil //Para gerenciar entre cliente e funcionario
+  if (loading) return null; // ou um spinner de carregamento
+
+  const perfil = user?.perfil;
 
   return (
     <div className="sidebar">
@@ -27,20 +29,20 @@ export default function Sidebar() {
             <MdAssignment /> Ordens de Serviço
           </NavLink>
         </li>
-        { perfil === 'cliente' &&
-        <li>
-          <NavLink to="/perfil" className={({ isActive }) => isActive ? "active" : ""}>
-            <MdPerson /> Meu Perfil
-          </NavLink>
-        </li>
-        }
-        { perfil === 'funcionario' &&
+        {perfil === 'cliente' && (
           <li>
             <NavLink to="/perfil" className={({ isActive }) => isActive ? "active" : ""}>
-              <MdPeople/> Clientes
+              <MdPerson /> Meu Perfil
             </NavLink>
           </li>
-        }
+        )}
+        {perfil === 'funcionario' && (
+          <li>
+            <NavLink to="/perfil" className={({ isActive }) => isActive ? "active" : ""}>
+              <MdPeople /> Clientes
+            </NavLink>
+          </li>
+        )}
         <li>
           <NavLink to="/history" className={({ isActive }) => isActive ? "active" : ""}>
             <MdHistory /> Histórico de Serviços
@@ -48,5 +50,5 @@ export default function Sidebar() {
         </li>
       </ul>
     </div>
-  )
+  );
 }

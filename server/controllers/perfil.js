@@ -53,6 +53,22 @@ exports.getUsuario = async (req, res) => {
     }
 };
 
+exports.getAllClientes = async (req, res) => {
+    try {
+        const query = `
+            SELECT u.id, u.nome, u.email, u.telefone, u.endereco
+            FROM usuario u
+            WHERE u.perfil = 'cliente'
+        `;
+        const [rows] = await pool.query(query);
+
+        return res.json(rows);
+    } catch (err) {
+        console.error("Erro ao buscar clientes:", err);
+        return res.status(500).json({ error: "Erro no servidor ao buscar clientes." });
+    }
+};
+
 exports.editPerfil = async (req, res) => {
     try {
         const { id } = req.params;

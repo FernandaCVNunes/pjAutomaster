@@ -1,7 +1,6 @@
 .navbar {
   display: none;
   align-items: center;
-  border-bottom: 1px solid #eee;
 }
 
 button{
@@ -21,6 +20,7 @@ button{
 }
 
 .hamburger {
+  display: none;
   font-size: 22px;
   background: none;
   border: none;
@@ -62,6 +62,10 @@ button{
 
 @media (max-width: 768px) {
   .navbar {
+    display: block;
+    border-bottom: 1px solid #eee;
+  }
+  .hamburger {
     display: block;
   }
 }

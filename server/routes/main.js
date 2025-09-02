@@ -25,5 +25,9 @@ mainRouter.post('/agenda/agendar', agendaController.agendar)
 
 //Histórico
 mainRouter.get('/historico/:cliente_id', historicoController.getHistoricClient)
+mainRouter.get('/historico', historicoController.getHistoricAllClients);
+
+//Pegar todos os clientes 
+mainRouter.get('/clientes', perfilController.getAllClientes)
 
 module.exports = mainRouter;
