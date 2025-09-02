@@ -5,6 +5,7 @@ const perfilController = require('../controllers/perfil')
 const agendaController = require('../controllers/agenda')
 const authController = require('../controllers/auth')
 const historicoController = require('../controllers/historico')
+const mensagemController = require('../controllers/menssagem')
 
 //Auth
 mainRouter.post('/auth/registro', authController.registro);
@@ -30,5 +31,10 @@ mainRouter.get('/historico', historicoController.getHistoricAllClients);
 
 //Pegar todos os clientes 
 mainRouter.get('/clientes', perfilController.getAllClientes)
+
+// Mensagens
+mainRouter.get('/mensagens/os/:osId', mensagemController.getMensagensOS);
+mainRouter.post('/mensagens', mensagemController.enviarMensagem);
+mainRouter.get('/verificar-acesso/:osId/:usuarioId/:perfil', mensagemController.verificarAcessoOS);
 
 module.exports = mainRouter;

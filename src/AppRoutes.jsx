@@ -11,6 +11,7 @@ import Contato from "./pages/Automaster/Contato";
 import Login from "./pages/Automaster/Login";
 import Registro from "./pages/Automaster/Registro";
 import PrivateRoute from './PrivateRoute'
+import OrdemServico from "./pages/Dashboard/OrdemServico";
 
 export default function AppRoutes() {
     return(
@@ -34,6 +35,7 @@ export default function AppRoutes() {
                 <Route path="perfil" element={<MeuPerfil />} />
                 <Route path="history" element={<Historico />} />
                 <Route path="agenda" element={<Agenda />} />
+                <Route path="ordens" element={<OrdemServico />} />
             </Route>
         </Routes>
     )
