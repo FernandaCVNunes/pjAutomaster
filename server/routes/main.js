@@ -19,6 +19,7 @@ mainRouter.put('/editar/:id', perfilController.editPerfil)
 mainRouter.post('/veiculos', veiculoController.createVeiculo)
 mainRouter.put('/veiculos/:id', veiculoController.updateVeiculo)
 mainRouter.get('/veiculos/cliente/:cliente_id', veiculoController.getVeiculosByCliente);
+mainRouter.delete('/veiculos/:id', veiculoController.deleteVeiculo)
 
 // Agenda
 mainRouter.post('/agenda/agendar', agendaController.agendar)

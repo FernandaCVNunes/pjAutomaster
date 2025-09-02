@@ -115,3 +115,27 @@ exports.updateVeiculo = async (req, res) => {
         return res.status(500).json({ error: 'Erro no servidor ao atualizar o veículo.' });
     }
 }
+
+exports.deleteVeiculo = async (req, res) => {
+    const { id } = req.params;
+
+    if (!id) {
+        return res.status(400).json({ error: 'ID do veículo é obrigatório.' });
+    }
+
+    try {
+        // Verifica se o veículo existe
+        const veiculo = await getVeiculoById(id);
+        if (!veiculo) {
+            return res.status(404).json({ error: 'Veículo não encontrado.' });
+        }
+
+        // Deleta o veículo
+        await pool.execute('DELETE FROM veiculo WHERE id = ?', [id]);
+
+        return res.status(200).json({ message: 'Veículo removido com sucesso!' });
+    } catch (err) {
+        console.error('Erro ao remover o veículo:', err);
+        return res.status(500).json({ error: 'Erro no servidor ao remover o veículo.' });
+    }
+};

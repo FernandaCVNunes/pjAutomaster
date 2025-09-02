@@ -188,29 +188,59 @@ form button.btn-cancel:hover {
     flex-direction: column;
     gap: 10px;
     margin-bottom: 20px;
-    max-width: 450px;
+    max-width: 100%;
+    overflow-x: auto;
 }
 
-.veiculo-item {
-    padding: 10px 15px;
-    background-color: #f2f2f2;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+.veiculo-list table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.veiculo-list table thead tr {
+    background: #f2f2f2;
+}
+
+.veiculo-list table tr td,
+.veiculo-list table tr th {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
     text-align: left;
+    font-size: 14px;
+}
+
+.veiculo-list table tr td button {
+    margin-right: 5px;
+    font-size: 12px;
+    padding: 3px 6px;
+    border-radius: 5px;
+}
+
+.veiculo-list table tr td button.btn-safe {
+    background-color: rgb(26, 116, 233);
+    color: white;
+    border: none;
+}
+
+.veiculo-list table tr td button.btn-safe:hover {
+    background-color: rgb(17, 85, 170);
+    color: #e0e0e0;
     cursor: pointer;
-    transition: background-color 0.2s, color 0.2s;
-    font-weight: 500;
 }
 
-.veiculo-item:hover {
-    background-color: #1a74e9;
+.veiculo-list table tr td button.btn-cancel {
+    background-color: rgb(5, 11, 19);
     color: white;
+    border: none;
 }
 
-.veiculo-item.active {
-    background-color: #1a74e9;
-    color: white;
-    font-weight: bold;
+.veiculo-list table tr td button.btn-cancel:hover {
+    background-color: rgb(44, 44, 44);
+    color: #e0e0e0;
+    cursor: pointer;
 }
 
 /* Loading */
@@ -251,8 +281,5 @@ form button.btn-cancel:hover {
 @media (min-width: 768px) {
     form {
         width: 450px;
-    }
-    .veiculo-list {
-        max-width: 450px;
     }
 }
