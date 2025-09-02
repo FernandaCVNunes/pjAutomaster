@@ -10,6 +10,7 @@ import MasterPage from "./mastepage";
 import Contato from "./pages/Automaster/Contato";
 import Login from "./pages/Automaster/Login";
 import Registro from "./pages/Automaster/Registro";
+import PrivateRoute from './PrivateRoute'
 
 export default function AppRoutes() {
     return(
@@ -22,7 +23,13 @@ export default function AppRoutes() {
             <Route path="registro" element={<Registro/>} />
             <Route path="login" element={<Login/>} />
 
-            <Route element={<DashboardLayout />}>
+            <Route 
+                element={
+                    <PrivateRoute>
+                        <DashboardLayout/>
+                    </PrivateRoute>
+                }
+            >
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="perfil" element={<MeuPerfil />} />
                 <Route path="history" element={<Historico />} />

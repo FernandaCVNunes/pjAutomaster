@@ -1,13 +1,12 @@
-import { useState } from "react"
+import { useState, useEffect, useContext } from "react"
 import { Calendario } from "./calendario"
+import { AuthContext } from "../../context/AuthContext"
 
 export const FormAgenda = () => {
-    // Simulação dos dados do backend
-    const [veiculos, setVeiculos] = useState([
-        { id: 1, nome: "Honda Civic - XYZ-9A87" },
-        { id: 2, nome: "Fiat Uno - ABC-1234" }
-    ])
+    const { user } = useContext(AuthContext)
+    const [veiculos, setVeiculos] = useState([])
     const [horarios, setHorarios] = useState([
+        // 🔮 TODO: substituir por horários vindos do backend
         "08:00", "09:00", "10:00", "11:00", "14:00", "15:00", "16:00"
     ])
 
@@ -18,6 +17,36 @@ export const FormAgenda = () => {
 
     const [dadosAgendamento, setDadosAgendamento] = useState([])
 
+    // Buscar veículos reais do cliente logado
+    useEffect(() => {
+        const fetchVeiculos = async () => {
+            try {
+                if (!user) return
+
+                // Buscar dados do usuário para pegar o clienteId
+                const resUser = await fetch(`http://localhost:3001/user/${user.id}`)
+                const usuario = await resUser.json()
+
+                if (usuario.perfil === "cliente" && usuario.clienteId) {
+                    const res = await fetch(`http://localhost:3001/veiculos/cliente/${usuario.clienteId}`)
+                    const data = await res.json()
+
+                    if (res.ok) {
+                        setVeiculos(data)
+                    } else {
+                        console.error("Erro ao buscar veículos:", data.error)
+                        setVeiculos([])
+                    }
+                }
+            } catch (error) {
+                console.error("Erro ao carregar veículos:", error)
+                setVeiculos([])
+            }
+        }
+
+        fetchVeiculos()
+    }, [user])
+
     const handleSubmit = async (e) => {
         e.preventDefault()
 
@@ -26,7 +55,7 @@ export const FormAgenda = () => {
             return
         }
 
-        const data = selectedDate.toISOString().split("T")[0] // pega formato YYYY-MM-DD
+        const data = selectedDate.toISOString().split("T")[0] // formato YYYY-MM-DD
         const novoAgendamento = {
             data,
             horario: selectedHorario,
@@ -77,7 +106,9 @@ export const FormAgenda = () => {
                     <option value="" disabled>Nenhum veículo cadastrado</option>
                 ) : (
                     veiculos.map(v => (
-                        <option key={v.id} value={v.id}>{v.nome}</option>
+                        <option key={v.id} value={v.id}>
+                            {`${v.marca} ${v.modelo} - ${v.placa}`}
+                        </option>
                     ))
                 )}
             </select>

@@ -1,41 +1,26 @@
-import React, { useContext, useEffect } from 'react';
-import backgroundImage from './img/home_backgroud.png';
-import { AuthContext } from './context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect } from "react"
+import backgroundImage from "./img/home_backgroud.png"
+import { AuthContext } from "./context/AuthContext"
+import { useNavigate } from "react-router-dom"
 
 const App = () => {
-  const { isAuthenticated, login, logout } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { isAuthenticated, loading } = useContext(AuthContext)
+  const navigate = useNavigate()
 
+  // Redireciona após validação
   useEffect(() => {
-  const storedToken = localStorage.getItem('token');
-  if (!storedToken) return;
-
-  fetch("http://localhost:3001/auth/validate", {
-    headers: { Authorization: `Bearer ${storedToken}` },
-  })
-    .then(res => {
-      if (!res.ok) throw new Error("Token inválido");
-      return res.json();
-    })
-    .then(data => {
-      // backend já retorna user pronto
-      login(data.user, storedToken);
-    })
-    .catch(() => {
-      logout();
-    });
-}, [login, logout]);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/dashboard");
+    if (!loading && isAuthenticated) {
+      navigate("/dashboard")
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, loading, navigate])
+
+  if (loading) {
+    return <div>Carregando...</div> // 🔄 ou um spinner bonitão
+  }
 
   return (
-    <section 
-      className="content-section"  
+    <section
+      className="content-section"
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       <h1>Bem-vindo à AutoMaster!</h1>
@@ -45,7 +30,7 @@ const App = () => {
         como podemos ajudar você a manter seu carro em perfeitas condições.
       </p>
     </section>
-  );
-};
+  )
+}
 
-export default App;
+export default App
