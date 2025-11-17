@@ -1,0 +1,178 @@
+main{
+    padding: 5px;
+}
+
+h1{
+    font-weight: 600;
+}
+
+
+/* Tabela Funcionario */
+
+.table-func-container {
+    padding: 10px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+.table-func {
+    width: 100%;
+    min-width: 400px;
+    border-collapse: collapse;
+    background: #fafafa;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table-func th, .table-func td {
+    padding: 10px 8px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: left;
+    font-size: 14px;
+}
+
+.table-func th {
+    background: #f2f2f2;
+    font-weight: 600;
+}
+
+.blue{
+    color: #1a74e9;
+}
+
+.table-func tr:hover {
+    background: #e6f0fa;
+    transition: background 0.2s;
+}
+
+.btn-vermais {
+    border: 0;
+    padding: 5px 12px;
+    font-size: 13px;
+    font-weight: bold;
+    color: rgb(26, 116, 233);
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: inherit;
+}
+
+.btn-vermais:hover {
+    color: gray;
+    text-decoration: underline;
+}
+
+.table-func-empty {
+    padding: 30px;
+    text-align: center;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+.status-bubble {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 16px;
+    background-color: #e0e3e8;
+    color: #444;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    vertical-align: middle;
+}
+
+tbody tr td {
+    color: #1a74e9;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .table-func,
+    .table-func thead,
+    .table-func tbody,
+    .table-func th,
+    .table-func td,
+    .table-func tr {
+        display: block;
+    }
+
+    .table-func thead {
+        display: none;
+    }
+
+    .table-func tr {
+        margin-bottom: 15px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        padding: 8px;
+    }
+
+    .table-func td {
+        padding: 10px;
+        border: none;
+        position: relative;
+        font-size: 15px;
+    }
+
+    .table-func td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: block;
+        margin-bottom: 4px;
+        color: #1a74e9;
+    }
+}
+
+/*Modal*/
+
+.modal-historico-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal-historico {
+    background: #fff;
+    padding: 30px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    min-width: 280px;
+    max-width: 95vw;
+}
+
+.modal-historico h2 {
+    margin-bottom: 18px;
+    font-size: 20px;
+    color: #1a74e9;
+}
+
+.modal-historico p {
+    margin: 8px 0;
+    font-size: 15px;
+}
+
+.btn-voltar {
+    margin-top: 18px;
+    border: 0;
+    padding: 7px 18px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(26, 116, 233);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-voltar:hover {
+    background-color: rgb(17, 85, 170);
+    color: #e0e0e0;
+}
